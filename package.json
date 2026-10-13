@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {"test": "playwright test", "test:smoke": "playwright test --grep \"@smoke\"","test:ci": "playwright test --grep-invert \"@external\""},
   "keywords": [],
   "author": "",
   "license": "ISC",
