@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 test.setTimeout(90_000);
 
-test ('checkboxes', async({page}) => {
+test ('checkboxes @external', async({page}) => {
   //go to site
  await page.goto('https://the-internet.herokuapp.com/checkboxes');
 
@@ -14,7 +14,7 @@ test ('checkboxes', async({page}) => {
 
 });
 
-test ('Alerts', async({page})=>{
+test ('Alerts @external', async({page})=>{
 //go to site
 await page.goto('https://the-internet.herokuapp.com/javascript_alerts');
 

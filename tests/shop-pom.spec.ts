@@ -17,6 +17,5 @@ test('open cart', async ({ page, loggedInInventory, cartPage }) => {
     await loggedInInventory.addToCart('sauce-labs-backpack');
     await loggedInInventory.openCart();
     await expect(page).toHaveURL(/cart.html/);
-    const itemNames = await cartPage.getItemNames();
-    expect(itemNames).toContain('Sauce Labs Backpack');
+    await expect(cartPage.itemNames).toHaveText(['Sauce Labs Backpack']);
 });
