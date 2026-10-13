@@ -19,10 +19,10 @@ test('AddToCart', async ({ loggedInPage }) => {
     await expect(loggedInPage.locator('div.inventory_item_name')).toHaveText('Sauce Labs Backpack');
 });
 
-test('login button assert', async ({ page }) => {
+test('login button assert', async ({ loggedInPage }) => {
 
-   await page.goto('https://www.saucedemo.com/');
+   await loggedInPage.goto('https://www.saucedemo.com/');
 
-await expect(page.getByRole('button', { name: 'Login' })).toBeVisible();
+await expect(loggedInPage.getByRole('button', { name: 'Login' })).toBeVisible();
 
 });
