@@ -15,3 +15,21 @@ test('mocked API shows only the fake fruit', async ({ page }) => {
     await expect(page.getByText('Banana')).not.toBeVisible();
 
 });
+
+test('real fruits plus one injected fruit @external', async ({ page }) => {
+  await page.route('*/**/api/v1/fruits', async route => {
+    const response = await route.fetch();   // let the REAL call happen
+    const json = await response.json();     // read the real data
+    json.push({ name: 'Loquat', id: 100 }); // add one fake item
+    await route.fulfill({ response, json }); // hand back real + fake
+  });
+
+  await page.goto('https://demo.playwright.dev/api-mocking');
+
+  
+  // 1. assert Loquat is visible with more time for the API to respond
+  await expect(page.getByText('Loquat', { exact: true })).toBeVisible({ timeout: 30000 });
+  // 2. assert a REAL fruit (e.g. Banana) is still visible
+  await expect(page.getByText('Banana')).toBeVisible();
+});
+
