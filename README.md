@@ -13,6 +13,8 @@ End-to-end and API test automation framework built with Playwright and TypeScrip
 - **Test tagging**: `@smoke` and `@regression` tags run through `--grep`
 - **API tests**: Playwright's `request` fixture checks status codes and response bodies
 - **CI**: GitHub Actions runs the suite on every push and pull request
+- **Network mocking**: with `page.route()`
+- **Hybrid Test** : API + UI
 
 ## Tech stack
 
@@ -63,9 +65,6 @@ npx playwright show-report                    # open the HTML report
 - Currently runs on Chromium.
 
 ## Planned
-
-- Network mocking with `page.route()`
-- A hybrid API + UI test
 - Cross-browser runs
 - Published HTML report
 
