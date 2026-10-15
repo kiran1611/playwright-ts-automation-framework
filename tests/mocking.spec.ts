@@ -1,18 +1,18 @@
 import { test, expect } from '@playwright/test';
 
 test('mocked API shows only the fake fruit', async ({ page }) => {
-    // 1. set the trap BEFORE loading the page
-    await page.route('*/**/api/v1/fruits', async route => {
+  // 1. set the trap BEFORE loading the page
+  await page.route('*/**/api/v1/fruits', async route => {
     await route.fulfill({ json: [{ name: 'Strawberry', id: 21 }] });
-    });
+  });
 
-    // 2. open the page
-    await page.goto('https://demo.playwright.dev/api-mocking');
+  // 2. open the page
+  await page.goto('https://demo.playwright.dev/api-mocking');
 
-    // 3. assert Strawberry is visible
-    await expect(page.getByText('Strawberry')).toBeVisible();
-    // 4. assert Banana is NOT on the page
-    await expect(page.getByText('Banana')).not.toBeVisible();
+  // 3. assert Strawberry is visible
+  await expect(page.getByText('Strawberry')).toBeVisible();
+  // 4. assert Banana is NOT on the page
+  await expect(page.getByText('Banana')).not.toBeVisible();
 
 });
 
@@ -26,10 +26,29 @@ test('real fruits plus one injected fruit @external', async ({ page }) => {
 
   await page.goto('https://demo.playwright.dev/api-mocking');
 
-  
+
   // 1. assert Loquat is visible with more time for the API to respond
   await expect(page.getByText('Loquat', { exact: true })).toBeVisible({ timeout: 30000 });
   // 2. assert a REAL fruit (e.g. Banana) is still visible
   await expect(page.getByText('Banana')).toBeVisible();
 });
 
+// Demo app has no error state: a 500 leaves it on "Loading...".
+test('server error @external', async ({ page }) => {
+  await page.route('*/**/api/v1/fruits', async route => {
+    await route.fulfill({ status: 500, body: 'Server exploded' });
+  });
+  await page.goto('https://demo.playwright.dev/api-mocking');
+
+  // the real data must NOT appear when the server fails
+  await expect(page.getByText('Banana')).toHaveCount(0);
+});
+
+test('connection dropped @external', async ({ page }) => {
+  await page.route('*/**/api/v1/fruits', async route => {
+    await route.abort();
+  });
+  await page.goto('https://demo.playwright.dev/api-mocking');
+
+  await expect(page.getByText('Banana')).toHaveCount(0);
+});
