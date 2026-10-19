@@ -3,13 +3,20 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {"test": "playwright test", "test:smoke": "playwright test --grep \"@smoke\"","test:ci": "playwright test --grep-invert \"@external\""},
+  "scripts": {
+    "test": "playwright test",
+    "test:smoke": "playwright test --grep \"@smoke\"",
+    "test:ci": "playwright test --grep-invert \"@external\"",
+     "report:allure": "allure generate ./allure-results --clean && allure open ./allure-report"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
     "@playwright/test": "^1.63.0",
-    "@types/node": "^26.6.4"
+    "@types/node": "^26.6.4",
+    "allure": "^3.21.0",
+    "allure-playwright": "^3.14.0"
   }
 }
