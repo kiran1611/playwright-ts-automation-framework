@@ -29,13 +29,13 @@ export default defineConfig({
     // baseURL: 'http://localhost:3000',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
+    trace: 'retain-on-failure', screenshot: 'only-on-failure',
      launchOptions: {
       // // Optional local browser path (set LOCAL_CHROMIUM_PATH on machines that can't download browsers).
       executablePath: process.env.LOCAL_CHROMIUM_PATH
     }
   },
-
+ 
   /* Configure projects for major browsers */
   projects: [
     { name: 'setup', testMatch: /auth\.setup\.ts/ },
