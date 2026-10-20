@@ -6,7 +6,7 @@
   "scripts": {
     "test": "playwright test",
     "test:smoke": "playwright test --grep \"@smoke\"",
-    "test:ci": "playwright test --grep-invert \"@external\"",
+    "test:ci": "playwright test --grep-invert \"@external|@visual\"",
      "report:allure": "allure generate ./allure-results --clean && allure open ./allure-report"
   },
   "keywords": [],

@@ -15,6 +15,8 @@ End-to-end and API test automation framework built with Playwright and TypeScrip
 - **CI**: GitHub Actions runs the suite on every push and pull request
 - **Network mocking**: with `page.route()`
 - **Hybrid Test** : API + UI
+- **Visual Regression** :visual regression tests (local baselines)
+- **Allure reports** : Allure reports as CI artifacts
 
 ## Tech stack
 
