@@ -65,6 +65,7 @@ npx playwright show-report                    # open the HTML report
 - Tests target public demo sites ([SauceDemo](https://www.saucedemo.com) and [JSONPlaceholder](https://jsonplaceholder.typicode.com)). JSONPlaceholder is a fake API: it accepts a POST but doesn't save the data.
 - The config reads an optional `LOCAL_CHROMIUM_PATH` environment variable for machines that can't download Playwright's browsers. CI doesn't need it.
 - Currently runs on Chromium.
+- The visual baseline was generated on Windows, so @visual tests are excluded from CI. Regenerate it with --update-snapshots on another OS.
 
 ## Planned
 - Cross-browser runs
