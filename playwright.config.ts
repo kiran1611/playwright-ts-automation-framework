@@ -1,4 +1,4 @@
-import { defineConfig, devices } from '@playwright/test';
+import { defineConfig, devices, type Project } from '@playwright/test';
 
 /**
  * Read environment variables from file.
@@ -11,6 +11,22 @@ import { defineConfig, devices } from '@playwright/test';
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
+// Firefox and WebKit run on CI only: their browser downloads are blocked on the dev laptop
+const ciBrowsers: Project[] = process.env.CI
+  ? [
+      {
+        name: 'firefox',
+        use: { ...devices['Desktop Firefox'], storageState: 'playwright/.auth/user.json' },
+        dependencies: ['setup'],
+      },
+      {
+        name: 'webkit',
+        use: { ...devices['Desktop Safari'], storageState: 'playwright/.auth/user.json' },
+        dependencies: ['setup'],
+      },
+    ]
+  : [];
+
 export default defineConfig({
   testDir: './tests',
   /* Run tests in files in parallel */
@@ -28,12 +44,12 @@ export default defineConfig({
     /* Base URL to use in actions like `await page.goto('')`. */
     // baseURL: 'http://localhost:3000',
 
-    /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
+    /* Collect trace when test failed . See https://playwright.dev/docs/trace-viewer */
     trace: 'retain-on-failure', screenshot: 'only-on-failure',
      launchOptions: {
-      // // Optional local browser path (set LOCAL_CHROMIUM_PATH on machines that can't download browsers).
+      // Optional local browser path (set LOCAL_CHROMIUM_PATH on machines that can't download browsers).
       executablePath: process.env.LOCAL_CHROMIUM_PATH
-    }
+    },
   },
  
   /* Configure projects for major browsers */
@@ -44,6 +60,8 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'], storageState: 'playwright/.auth/user.json' },
       dependencies: ['setup'],
     },
+    ...ciBrowsers,
+    
 
     //{
     //  name: 'firefox',
