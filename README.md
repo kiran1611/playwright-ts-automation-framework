@@ -17,6 +17,7 @@ End-to-end and API test automation framework built with Playwright and TypeScrip
 - **Hybrid Test** : API + UI
 - **Visual Regression** :visual regression tests (local baselines)
 - **Allure reports** : Allure reports as CI artifacts
+- **Cross-browser runs** : Cross-browser runs (Chromium, Firefox, WebKit) on CI
 
 ## Tech stack
 
@@ -66,6 +67,7 @@ npx playwright show-report                    # open the HTML report
 - The config reads an optional `LOCAL_CHROMIUM_PATH` environment variable for machines that can't download Playwright's browsers. CI doesn't need it.
 - Currently runs on Chromium.
 - The visual baseline was generated on Windows, so @visual tests are excluded from CI. Regenerate it with --update-snapshots on another OS.
+- Firefox and WebKit run on CI only.
 
 ## Planned
 - Cross-browser runs
